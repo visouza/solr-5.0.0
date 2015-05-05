@@ -1,0 +1,6 @@
+#Written by CorePropertiesLocator
+#Tue Apr 07 13:40:27 EDT 2015
+name=new_core
+config=solrconfig.xml
+schema=schema.xml
+dataDir=data
