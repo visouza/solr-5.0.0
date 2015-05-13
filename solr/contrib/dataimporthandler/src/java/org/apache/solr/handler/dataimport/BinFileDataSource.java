@@ -49,7 +49,7 @@ public class BinFileDataSource extends DataSource<InputStream>{
 
   @Override
   public InputStream getData(String query) {
-    File f = FileDataSource.getFile(basePath,query);
+        File f = FileDataSource.getFile(basePath,query);
     try {
       return new FileInputStream(f);
     } catch (FileNotFoundException e) {
