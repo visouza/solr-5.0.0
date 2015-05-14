@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AMMF xmlns="http://tempuri.org/XMLSchema.xsd" Version="11.2" CreateDate="2011-11-07T17:05:14" ProcessorBINCIB="422443" ProcessorName="WorldPay" FileSequence="18">
+  <Merchants Count="153">
+    <Merchant ChangeIndicator="A" LocationCountry="840">
+      <AcquirerBID>10029881</AcquirerBID>
+      <AcquirerName>WorldPay</AcquirerName>
+      <AcquirerMerchantID>*</AcquirerMerchantID>
+    </Merchant>
+    <Merchant ChangeIndicator="A" LocationCountry="840">
+      <AcquirerBID>10029882</AcquirerBID>
+      <AcquirerName>WorldPay2</AcquirerName>
+      <AcquirerMerchantID>Hello World!</AcquirerMerchantID>
+    </Merchant>
+  </Merchants>
+</AMMF>

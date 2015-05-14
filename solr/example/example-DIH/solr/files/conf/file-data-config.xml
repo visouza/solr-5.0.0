@@ -1,40 +1,28 @@
+
 <dataConfig>
-    <dataSource name="fds" encoding="UTF-8"  type="FileDataSource" />
-    <document>
-        <!-- Get a list of files from the last time the handler ran -->
-        <entity name="films"
-                processor="FileListEntityProcessor"
-                newerThan="'NOW/DAY'"
-                fileName=".*csv"
-                rootEntity="false"
-                baseDir="C:\solr\bin\solr-5.0.0\example\films\"
-                >
+	<dataSource type="FileDataSource" encoding="UTF-8" />
+	<document>
 
-            <entity name="films"
-                    processor="LineEntityProcessor"
-                    url="${films.fileAbsolutePath}"
-                    rootEntity="true"
-                    dataSource="fds"
-                    transformer="RegexTransformer"
-                    >
+		<entity name="AMMFdir" rootEntity="false" dataSource="null"
+			processor="FileListEntityProcessor"
+			fileName="^*\.xml$" recursive="true"
+			baseDir="C:\solr\src\solr-5.0.0\solr\example\merchant"
+			>
+			<entity 
+				processor="XPathEntityProcessor"
+			name="AMMF"
+			pk="AcquirerBID"
+			datasource="AMMFdir"
+			url="${AMMFdir.fileAbsolutePath}"
+			forEach="/AMMF/Merchants/Merchant/"
+			transformer="DateFormatTransformer, RegexTransformer"
+			>
 
-                <!-- Big ugly regexp to get all the tab-delimited fields -->
-                <field column="rawLine"
-                       regex="^(.*),(.*),(.*),(.*),(.*),(.*)$"
-                       groupNames="name,directed_by,genre,type,id,initial_release_date"
-                        />
-
-                <!-- Split the multi-values on comma -->
-
-                <field column="name" splitBy="," sourceColName="name" />
-                <field column="directed_by" splitBy="," sourceColName="directed_by" />
-                <field column="initial_release_date" splitBy="," sourceColName="initial_release_date" />
-                <field column="genre" splitBy="," sourceColName="genre" />
-				<field column="id" splitBy="," sourceColName="id" />
-            </entity> <!-- end of hathiline -->
-
-        </entity> <!-- end of hathifile -->
-    </document>
+				<field column="AcquirerBID" xpath="/AMMF/Merchants/Merchant/AcquirerBID" />
+				<field column="AcquirerName" xpath="/AMMF/Merchants/Merchant/AcquirerName" />
+				<field column="AcquirerMerchantID" xpath="/AMMF/Merchants/Merchant/AcquirerMerchantID" />
+	
+			</entity>
+		</entity>
+	</document>
 </dataConfig>
-
-

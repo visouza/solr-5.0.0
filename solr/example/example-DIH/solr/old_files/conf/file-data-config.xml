@@ -1,0 +1,40 @@
+<dataConfig>
+    <dataSource name="fds" encoding="UTF-8"  type="FileDataSource" />
+    <document>
+        <!-- Get a list of files from the last time the handler ran -->
+        <entity name="films"
+                processor="FileListEntityProcessor"
+                newerThan="'NOW/DAY'"
+                fileName=".*xml"
+                rootEntity="false"
+                baseDir="C:\solr\bin\solr-5.0.0\example\films\"
+                >
+
+            <entity name="films"
+                    processor="LineEntityProcessor"
+                    url="${films.fileAbsolutePath}"
+                    rootEntity="true"
+                    dataSource="fds"
+                    transformer="RegexTransformer"
+                    >
+
+                <!-- Big ugly regexp to get all the tab-delimited fields -->
+                <field column="rawLine"
+                       regex="^(.*),(.*),(.*),(.*),(.*),(.*)$"
+                       groupNames="name,directed_by,genre,type,id,initial_release_date"
+                        />
+
+                <!-- Split the multi-values on comma -->
+
+                <field column="name" splitBy="," sourceColName="name" />
+                <field column="directed_by" splitBy="," sourceColName="directed_by" />
+                <field column="initial_release_date" splitBy="," sourceColName="initial_release_date" />
+                <field column="genre" splitBy="," sourceColName="genre" />
+				<field column="id" splitBy="," sourceColName="id" />
+            </entity> <!-- end of hathiline -->
+
+        </entity> <!-- end of hathifile -->
+    </document>
+</dataConfig>
+
+
